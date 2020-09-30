@@ -27,7 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Users implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(length = 50)
