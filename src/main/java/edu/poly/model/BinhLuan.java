@@ -21,12 +21,12 @@ public class BinhLuan implements Serializable {
     private String noiDungBinhLuan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BaiDang_id")
-    private BaiDang baiDang;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
     private Users users;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MatHang_id")
+    private MatHang MatHang;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -38,7 +38,15 @@ public class BinhLuan implements Serializable {
     @UpdateTimestamp
     private Date ngaySua;
 
-    public int getId() {
+    public MatHang getMatHang() {
+		return MatHang;
+	}
+
+	public void setMatHang(MatHang matHang) {
+		MatHang = matHang;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -52,14 +60,6 @@ public class BinhLuan implements Serializable {
 
     public void setNoiDungBinhLuan(String noiDungBinhLuan) {
         this.noiDungBinhLuan = noiDungBinhLuan;
-    }
-
-    public BaiDang getBaiDang() {
-        return baiDang;
-    }
-
-    public void setBaiDang(BaiDang baiDang) {
-        this.baiDang = baiDang;
     }
 
     public Users getUsers() {

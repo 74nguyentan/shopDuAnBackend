@@ -1,78 +1,71 @@
 package edu.poly.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 
+import edu.poly.exception.UserNotFoundException;
 import edu.poly.model.Users;
-import edu.poly.repository.UserRepository;
+import edu.poly.service.UserService;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 	
-	@Autowired 
-	private UserRepository userrepository;
+	@Autowired
+	private UserService userservice;
 	
-    
-    public UserController(UserRepository userrepository) {
-        this.userrepository = userrepository;
-    }
-    
-//    @GetMapping("/users")
-//    public Collection<Users> coolCars() {
-//        return userrepository.findAll();
-//    }
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-	public ResponseEntity<List<Users>> listAllUsers(){
-		List<Users> users= userrepository.findAll();
-		if(users.isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<Users>>(users, HttpStatus.OK);
+	// hiển thị user theo id
+	@GetMapping("/get/{id}")
+	public Users get(@PathVariable Integer id) {
+		Users users = userservice.findById(id).orElseThrow(()->new UserNotFoundException());
+		return users;
 	}
-     
     
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Users users) {
-        userrepository.save(users);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<?> save(@PathVariable Integer id) {
-        userrepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
-    @GetMapping("/get/{id}")
-    public ResponseEntity<?> get(@PathVariable Integer id) {
-        Users users = userrepository.getOne(id);
-        return new ResponseEntity<Users>(users, HttpStatus.OK);
-    }
-    
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAll() {
-        List<Users> users = userrepository.findAll();
-        List<Integer> listId = new ArrayList<>();
-        for (Users item : users) {
-        	listId.add(item.getId());
-		}
-        return new ResponseEntity<>(listId, HttpStatus.OK);
-    }
+	//Save user
+	@PostMapping("save")
+	public Users save(@RequestBody Users users) {
+		return userservice.save(users);
+	}
+	
+	//hiển thị tất cả user
+	@GetMapping("list")
+	public List<Users> listAll(){
+		return (List<Users>) userservice.findAll();
+	}
+	
+//	cập nhật user theo id
+	@PutMapping("update/{id}")
+	public Users update(@PathVariable Integer id, @RequestBody Users users) {
+		return userservice.findById(id)
+				.map(use ->{
+					use.setDienThoai(users.getDienThoai());
+					use.setHoVaTen(users.getHoVaTen());
+					use.setEmail(users.getEmail());
+					use.setMatKhau(users.getMatKhau());
+					use.setVaiTro(users.isVaiTro());
+					use.setNgayLap(users.getNgayLap());
+					use.setNgaySua(users.getNgaySua());
+					use.setDiachiuser(users.getDiachiuser());
+					return userservice.save(use);
+				}).get();
+	}
+	
+	@DeleteMapping("delete/{id}")
+	public Users delete(@PathVariable Integer id) {
+		return userservice.deleteById(id);
+	}
+//	@GetMapping("/find/{hoVaTen}")
+//	public List<Users> findByName(String hoVaTen){
+//		return userservice.findUserByName(hoVaTen);
+//	}
     
 }

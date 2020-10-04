@@ -23,10 +23,6 @@ public class LoaiHang implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loaiHang")
 	private List<MatHang> matHang;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loaiHang")
-	private List<BaiDang> baiDang;
-
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@UpdateTimestamp

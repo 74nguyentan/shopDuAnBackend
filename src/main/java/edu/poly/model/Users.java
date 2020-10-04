@@ -46,6 +46,25 @@ public class Users implements Serializable{
 	@Column(length = 12)
 	private String dienThoai;
 	
+	@Column(length = 12)
+	private String diachiuser;
+	
+	public String getDiachiuser() {
+		return diachiuser;
+	}
+
+	public void setDiachiuser(String diachiuser) {
+		this.diachiuser = diachiuser;
+	}
+
+	public List<MatHang> getMatHang() {
+		return matHang;
+	}
+
+	public void setMatHang(List<MatHang> matHang) {
+		this.matHang = matHang;
+	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@CreationTimestamp
@@ -61,6 +80,11 @@ public class Users implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private List<DanhGia> danhGia;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private List<MatHang> matHang;
+	
+	
 
 	public int getId() {
 		return id;

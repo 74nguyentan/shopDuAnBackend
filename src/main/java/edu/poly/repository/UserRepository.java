@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import edu.poly.model.Users;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Integer> {
+public interface UserRepository extends CrudRepository<Users, Integer> {
 
 
 

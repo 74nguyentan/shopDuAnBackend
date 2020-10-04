@@ -2,6 +2,7 @@ package edu.poly.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,11 +21,11 @@ public class DanhGia implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Users_id")
 	private Users users;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BaiDang_id")
-	private BaiDang baidang;
-
+    @JoinColumn(name = "MatHang_id")
+    private MatHang MatHang;
+	
 	@Column(length = 20)
 	private int soSao;
 
@@ -38,6 +39,14 @@ public class DanhGia implements Serializable{
 	@UpdateTimestamp
 	private Date ngaySua;
 
+
+	public MatHang getMatHang() {
+		return MatHang;
+	}
+
+	public void setMatHang(MatHang matHang) {
+		MatHang = matHang;
+	}
 
 	public int getId() {
 		return id;
@@ -53,14 +62,6 @@ public class DanhGia implements Serializable{
 
 	public void setUsers(Users users) {
 		this.users = users;
-	}
-
-	public BaiDang getBaidang() {
-		return baidang;
-	}
-
-	public void setBaidang(BaiDang baidang) {
-		this.baidang = baidang;
 	}
 
 	public int getSoSao() {
