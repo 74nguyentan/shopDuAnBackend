@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "DanhGia")
 public class DanhGia implements Serializable{
@@ -43,7 +45,7 @@ public class DanhGia implements Serializable{
 	public MatHang getMatHang() {
 		return MatHang;
 	}
-
+	@JsonIgnore
 	public void setMatHang(MatHang matHang) {
 		MatHang = matHang;
 	}
@@ -59,7 +61,7 @@ public class DanhGia implements Serializable{
 	public Users getUsers() {
 		return users;
 	}
-
+	@JsonIgnore
 	public void setUsers(Users users) {
 		this.users = users;
 	}

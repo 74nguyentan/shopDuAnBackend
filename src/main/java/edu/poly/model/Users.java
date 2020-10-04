@@ -22,6 +22,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "users")
 public class Users implements Serializable{
@@ -57,14 +60,6 @@ public class Users implements Serializable{
 		this.diachiuser = diachiuser;
 	}
 
-	public List<MatHang> getMatHang() {
-		return matHang;
-	}
-
-	public void setMatHang(List<MatHang> matHang) {
-		this.matHang = matHang;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@CreationTimestamp
@@ -83,8 +78,6 @@ public class Users implements Serializable{
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private List<MatHang> matHang;
-	
-	
 
 	public int getId() {
 		return id;
@@ -92,6 +85,30 @@ public class Users implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	@JsonIgnore
+	public List<BinhLuan> getBinhLuan() {
+		return binhLuan;
+	}
+	
+	public void setBinhLuan(List<BinhLuan> binhLuan) {
+		this.binhLuan = binhLuan;
+	}
+	@JsonIgnore
+	public List<DanhGia> getDanhGia() {
+		return danhGia;
+	}
+	@JsonIgnoreProperties
+	public void setDanhGia(List<DanhGia> danhGia) {
+		this.danhGia = danhGia;
+	}
+	@JsonIgnore
+	public List<MatHang> getMatHang() {
+		return matHang;
+	}
+	@JsonIgnoreProperties
+	public void setMatHang(List<MatHang> matHang) {
+		this.matHang = matHang;
 	}
 
 	public String getHoVaTen() {
@@ -149,20 +166,9 @@ public class Users implements Serializable{
 	public void setNgaySua(Date ngaySua) {
 		this.ngaySua = ngaySua;
 	}
+	
+	
 
-	public List<BinhLuan> getBinhLuan() {
-		return binhLuan;
-	}
+	
 
-	public void setBinhLuan(List<BinhLuan> binhLuan) {
-		this.binhLuan = binhLuan;
-	}
-
-	public List<DanhGia> getDanhGia() {
-		return danhGia;
-	}
-
-	public void setDanhGia(List<DanhGia> danhGia) {
-		this.danhGia = danhGia;
-	}
 }

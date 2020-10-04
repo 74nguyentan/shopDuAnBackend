@@ -5,6 +5,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,10 +25,12 @@ public class BinhLuan implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Users users;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MatHang_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MatHang MatHang;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,51 +43,55 @@ public class BinhLuan implements Serializable {
     @UpdateTimestamp
     private Date ngaySua;
 
-    public MatHang getMatHang() {
-		return MatHang;
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNoiDungBinhLuan() {
+		return noiDungBinhLuan;
+	}
+
+	public void setNoiDungBinhLuan(String noiDungBinhLuan) {
+		this.noiDungBinhLuan = noiDungBinhLuan;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+	@JsonIgnore
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	public MatHang getMatHang() {
+		return MatHang;
+	}
+	@JsonIgnore
 	public void setMatHang(MatHang matHang) {
 		MatHang = matHang;
 	}
 
-	public int getId() {
-        return id;
-    }
+	public Date getNgayLap() {
+		return ngayLap;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setNgayLap(Date ngayLap) {
+		this.ngayLap = ngayLap;
+	}
 
-    public String getNoiDungBinhLuan() {
-        return noiDungBinhLuan;
-    }
+	public Date getNgaySua() {
+		return ngaySua;
+	}
 
-    public void setNoiDungBinhLuan(String noiDungBinhLuan) {
-        this.noiDungBinhLuan = noiDungBinhLuan;
-    }
+	public void setNgaySua(Date ngaySua) {
+		this.ngaySua = ngaySua;
+	}
 
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Date getNgayLap() {
-        return ngayLap;
-    }
-
-    public void setNgayLap(Date ngayLap) {
-        this.ngayLap = ngayLap;
-    }
-
-    public Date getNgaySua() {
-        return ngaySua;
-    }
-
-    public void setNgaySua(Date ngaySua) {
-        this.ngaySua = ngaySua;
-    }
+	
+	
+   
 }

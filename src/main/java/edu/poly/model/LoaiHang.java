@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +54,7 @@ public class LoaiHang implements Serializable{
 	public List<MatHang> getMatHang() {
 		return matHang;
 	}
-
+	@JsonIgnore
 	public void setMatHang(List<MatHang> matHang) {
 		this.matHang = matHang;
 	}

@@ -11,6 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "MatHang")
 public class MatHang implements Serializable{
@@ -47,7 +50,7 @@ public class MatHang implements Serializable{
 	private int soLuong;
 	
 	@Column(length = 100)
-	private int diaChiBan;
+	private String diaChiBan;
 	
 	@Column(length = 20)
 	private boolean trangThai;
@@ -75,13 +78,45 @@ public class MatHang implements Serializable{
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
 	private List<DanhGia> danhGia;
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	@JsonIgnore
+	public LoaiHang getLoaiHang() {
+		return loaiHang;
+	}
+	
+	public void setLoaiHang(LoaiHang loaiHang) {
+		this.loaiHang = loaiHang;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+	@JsonIgnore
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	@JsonIgnore
+	public List<BinhLuan> getBinhLuan() {
+		return binhLuan;
+	}
+
+	public void setBinhLuan(List<BinhLuan> binhLuan) {
+		this.binhLuan = binhLuan;
+	}
+	@JsonIgnore
+	public List<DanhGia> getDanhGia() {
+		return danhGia;
+	}
+
+	public void setDanhGia(List<DanhGia> danhGia) {
+		this.danhGia = danhGia;
 	}
 
 	public String getTenHang() {
@@ -95,7 +130,7 @@ public class MatHang implements Serializable{
 	public double getGia() {
 		return gia;
 	}
-
+	
 	public void setGia(double gia) {
 		this.gia = gia;
 	}
@@ -107,7 +142,6 @@ public class MatHang implements Serializable{
 	public void setXuatXu(String xuatXu) {
 		this.xuatXu = xuatXu;
 	}
-
 
 	public String getHinh0() {
 		return hinh0;
@@ -141,6 +175,14 @@ public class MatHang implements Serializable{
 		this.hinh3 = hinh3;
 	}
 
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
 	public int getSoLuong() {
 		return soLuong;
 	}
@@ -149,11 +191,11 @@ public class MatHang implements Serializable{
 		this.soLuong = soLuong;
 	}
 
-	public int getDiaChiBan() {
+	public String getDiaChiBan() {
 		return diaChiBan;
 	}
 
-	public void setDiaChiBan(int diaChiBan) {
+	public void setDiaChiBan(String diaChiBan) {
 		this.diaChiBan = diaChiBan;
 	}
 
@@ -163,38 +205,6 @@ public class MatHang implements Serializable{
 
 	public void setTrangThai(boolean trangThai) {
 		this.trangThai = trangThai;
-	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-
-	public List<BinhLuan> getBinhLuan() {
-		return binhLuan;
-	}
-
-	public void setBinhLuan(List<BinhLuan> binhLuan) {
-		this.binhLuan = binhLuan;
-	}
-
-	public List<DanhGia> getDanhGia() {
-		return danhGia;
-	}
-
-	public void setDanhGia(List<DanhGia> danhGia) {
-		this.danhGia = danhGia;
-	}
-
-	public String getMoTa() {
-		return moTa;
-	}
-
-	public void setMoTa(String moTa) {
-		this.moTa = moTa;
 	}
 
 	public Date getNgayLap() {
@@ -212,12 +222,6 @@ public class MatHang implements Serializable{
 	public void setNgaySua(Date ngaySua) {
 		this.ngaySua = ngaySua;
 	}
-
-	public LoaiHang getLoaiHang() {
-		return loaiHang;
-	}
-
-	public void setLoaiHang(LoaiHang loaiHang) {
-		this.loaiHang = loaiHang;
-	}
+	
+	
 }
