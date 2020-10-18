@@ -1,8 +1,15 @@
 package edu.poly.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,67 +19,73 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.poly.exception.UserNotFoundException;
 import edu.poly.model.MatHang;
-import edu.poly.model.Users;
-import edu.poly.service.MatHangService;
+import edu.poly.repository.MatHangRepository;
 
-@RestController
-@RequestMapping("/mathang")
+
+
+@RestController @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api")
 public class MatHangController {
 
 	@Autowired
-	private MatHangService mathangservice;
+	private MatHangRepository mathangrepository;
 	
-	//hiển thị mat hang theo id
-	@GetMapping("/get/{id}")
-	public MatHang get(@PathVariable Integer id) {
-		MatHang mathang = mathangservice.findById(id).orElseThrow(()->new UserNotFoundException());
-		return mathang;
-	}
+	// hiển thị tất cả mặt hàng http//localhost/8989/api/mathang
+	@GetMapping("/mathang")
+    public List<MatHang> getAllMatHangDetails() {
+        return mathangrepository.findAll();
+    }
+	
+	// hiển thị mặt hàng theo id http//localhost/8989/api/mathang/{id}
+    @GetMapping("/mathang/{id}")
+    public ResponseEntity<MatHang> getMatHangById(@PathVariable(value = "id") int MatHangId)
+        throws ResourceNotFoundException {
+        MatHang MatHang = mathangrepository.findById(MatHangId)
+          .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
+        return ResponseEntity.ok().body(MatHang);
+    }
     
-	//Save mat hang 
-	@PostMapping("save")
-	public MatHang save(@RequestBody MatHang mathang) {
-		return mathangservice.save(mathang);
-	}
-	
-	//Hiển thị tất cả các mặt hàng 
-	@GetMapping("list")
-	public List<MatHang> listAll(){
-		return (List<MatHang>) mathangservice.findAll();
-	}
-	
-	//Cập nhật mặt hàng theo id
-	@PutMapping("update/{id}")
-	public MatHang update(@PathVariable Integer id, @RequestBody MatHang mathangs) {
-		return mathangservice.findById(id)
-				.map(mathang ->{
-					mathang.setTenHang(mathangs.getTenHang());
-					mathang.setGia(mathangs.getGia());
-					mathang.setHinh0(mathangs.getHinh0());
-					mathang.setHinh1(mathangs.getHinh1());
-					mathang.setHinh2(mathangs.getHinh2());
-					mathang.setHinh3(mathangs.getHinh3());
-					mathang.setMoTa(mathangs.getMoTa());
-					mathang.setXuatXu(mathangs.getXuatXu());
-					mathang.setNgayLap(mathangs.getNgayLap());
-					mathang.setDiaChiBan(mathangs.getDiaChiBan());
-					mathang.setTrangThai(mathangs.isTrangThai());
-					
-					return mathangservice.save(mathang);
-				}).get();
-	}
-	
-	//xóa mat hang theo id
-	@DeleteMapping("delete/{id}")
-	public MatHang delete(@PathVariable Integer id) {
-		return mathangservice.deleteById(id);
-	}
-	
-	//tìm kiếm mặt hàng theo mặt hàng 
-	@GetMapping("/find/{tenhang}")
-	public List<MatHang> findByName(@PathVariable String tenhang){
-		return mathangservice.findBytenHangLike(tenhang);
-	}
+    // thêm mặt hàng nhớ nhấn post nhé không phải là get http//localhost/8989/api/mathang
+    @PostMapping("/mathang")
+    public MatHang createMatHang(@Valid @RequestBody MatHang MatHang) {
+        return mathangrepository.save(MatHang);
+    }
+
+    //cập nhật mặt hàng theo id n http//localhost/8989/api/mathang/{id} nhớ là put nhé chứ không phải là get and post
+    @PutMapping("/mathang/{id}")
+    public ResponseEntity<MatHang> updateMatHang(@PathVariable(value = "id") int MatHangId,
+         @Valid @RequestBody MatHang MatHangDetails) throws ResourceNotFoundException {
+        MatHang MatHang = mathangrepository.findById(MatHangId)
+        .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
+	        MatHang.setTenHang(MatHangDetails.getTenHang());
+			MatHang.setGia(MatHangDetails.getGia());
+			MatHang.setHinh0(MatHangDetails.getHinh0());
+			MatHang.setHinh1(MatHangDetails.getHinh1());
+			MatHang.setHinh2(MatHangDetails.getHinh2());
+			MatHang.setHinh3(MatHangDetails.getHinh3());
+			MatHang.setMoTa(MatHangDetails.getMoTa());
+			MatHang.setThoiHan(MatHangDetails.getThoiHan());
+			MatHang.setXuatXu(MatHangDetails.getXuatXu());
+			MatHang.setNgayLap(MatHangDetails.getNgayLap());
+			MatHang.setDiaChiBan(MatHangDetails.getDiaChiBan());
+			MatHang.setTrangThai(MatHangDetails.isTrangThai());
+        final MatHang updatedMatHang = mathangrepository.save(MatHang);
+        return ResponseEntity.ok(updatedMatHang);
+    }
+
+    // xóa mặt hàng theo id  http//localhost/8989/api/mathang nhớ là delete nhé
+    @DeleteMapping("/mathang/{id}")
+    public Map<String, Boolean> deleteMatHang(@PathVariable(value = "id") int MatHangId)
+         throws ResourceNotFoundException {
+        MatHang MatHang = mathangrepository.findById(MatHangId)
+       .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
+
+        mathangrepository.delete(MatHang);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+    
+    
 }
