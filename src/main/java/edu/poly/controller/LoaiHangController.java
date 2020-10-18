@@ -49,7 +49,6 @@ public class LoaiHangController {
 					.map(loaihang ->{
 						loaihang.setTenLoaiHang(loaihangs.getTenLoaiHang());
 						loaihang.setNgayLap(loaihangs.getNgayLap());
-						loaihang.setNgaySua(loaihangs.getNgaySua());
 						return loaihangservices.save(loaihang);
 					}).get();
 		}

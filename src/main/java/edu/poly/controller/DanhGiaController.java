@@ -47,8 +47,8 @@ public class DanhGiaController {
 				return danhgiaservice.findById(id)
 						.map(danhgia ->{
 							danhgia.setSoSao(danhgias.getSoSao());
-							danhgia.setNgayLap(danhgias.getNgayLap());
-							danhgia.setNgaySua(danhgias.getNgaySua());
+							danhgia.setNgayDanhGia(danhgias.getNgayDanhGiap());
+							
 							return danhgiaservice.save(danhgia);
 						}).get();
 			}

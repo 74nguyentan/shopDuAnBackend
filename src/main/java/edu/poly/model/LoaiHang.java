@@ -22,18 +22,13 @@ public class LoaiHang implements Serializable{
 	@Column(length = 50)
 	private String tenLoaiHang;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loaiHang")
-	private List<MatHang> matHang;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@UpdateTimestamp
-	private Date ngaySua;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@CreationTimestamp
 	private Date ngayLap;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loaiHang")
+	private List<MatHang> matHang;
 
 	public int getId() {
 		return id;
@@ -59,13 +54,6 @@ public class LoaiHang implements Serializable{
 		this.matHang = matHang;
 	}
 
-	public Date getNgaySua() {
-		return ngaySua;
-	}
-
-	public void setNgaySua(Date ngaySua) {
-		this.ngaySua = ngaySua;
-	}
 
 	public Date getNgayLap() {
 		return ngayLap;

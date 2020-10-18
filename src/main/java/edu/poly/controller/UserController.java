@@ -53,8 +53,8 @@ public class UserController {
 					use.setMatKhau(users.getMatKhau());
 					use.setVaiTro(users.isVaiTro());
 					use.setNgayLap(users.getNgayLap());
-					use.setNgaySua(users.getNgaySua());
-					use.setDiachiuser(users.getDiachiuser());
+					use.setHinhAnhUser(users.getHinhAnhUser());
+					use.setDiaChiUser(users.getDiaChiUser());
 					return userservice.save(use);
 				}).get();
 	}

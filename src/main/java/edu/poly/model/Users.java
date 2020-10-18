@@ -36,6 +36,9 @@ public class Users implements Serializable{
 	@Column(length = 50)
 	private String hoVaTen;
 	
+	@Column(length = 150)
+	private String hinhAnhUser;
+	
 	@Column(length = 50)
 	private String matKhau;
 	
@@ -50,25 +53,20 @@ public class Users implements Serializable{
 	private String dienThoai;
 	
 	@Column(length = 12)
-	private String diachiuser;
+	private String diaChiUser;
 	
-	public String getDiachiuser() {
-		return diachiuser;
+	public String getDiaChiUser() {
+		return diaChiUser;
 	}
 
-	public void setDiachiuser(String diachiuser) {
-		this.diachiuser = diachiuser;
+	public void setDiaChiUser(String diaChiUser) {
+		this.diaChiUser = diaChiUser;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@CreationTimestamp
 	private Date ngayLap;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@UpdateTimestamp
-	private Date ngaySua;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private List<BinhLuan> binhLuan;
@@ -126,6 +124,14 @@ public class Users implements Serializable{
 	public void setMatKhau(String matKhau) {
 		this.matKhau = matKhau;
 	}
+	
+	public String getHinhAnhUser() {
+		return hinhAnhUser;
+	}
+
+	public void setHinhAnhUser(String hinhAnhUser) {
+		this.hinhAnhUser = hinhAnhUser;
+	}
 
 	public boolean isVaiTro() {
 		return vaiTro;
@@ -158,17 +164,5 @@ public class Users implements Serializable{
 	public void setNgayLap(Date ngayLap) {
 		this.ngayLap = ngayLap;
 	}
-
-	public Date getNgaySua() {
-		return ngaySua;
-	}
-
-	public void setNgaySua(Date ngaySua) {
-		this.ngaySua = ngaySua;
-	}
-	
-	
-
-	
 
 }

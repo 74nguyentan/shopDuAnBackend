@@ -57,7 +57,6 @@ public class MatHangController {
 					mathang.setMoTa(mathangs.getMoTa());
 					mathang.setXuatXu(mathangs.getXuatXu());
 					mathang.setNgayLap(mathangs.getNgayLap());
-					mathang.setNgaySua(mathangs.getNgaySua());
 					mathang.setDiaChiBan(mathangs.getDiaChiBan());
 					mathang.setTrangThai(mathangs.isTrangThai());
 					

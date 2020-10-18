@@ -34,12 +34,7 @@ public class DanhGia implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@CreationTimestamp
-	private Date ngayLap;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@UpdateTimestamp
-	private Date ngaySua;
+	private Date ngayDanhGia;
 
 
 	public MatHang getMatHang() {
@@ -74,19 +69,12 @@ public class DanhGia implements Serializable{
 		this.soSao = soSao;
 	}
 
-	public Date getNgayLap() {
-		return ngayLap;
+	public Date getNgayDanhGiap() {
+		return ngayDanhGia;
 	}
 
-	public void setNgayLap(Date ngayLap) {
-		this.ngayLap = ngayLap;
+	public void setNgayDanhGia(Date ngayDanhGia) {
+		this.ngayDanhGia = ngayDanhGia;
 	}
 
-	public Date getNgaySua() {
-		return ngaySua;
-	}
-
-	public void setNgaySua(Date ngaySua) {
-		this.ngaySua = ngaySua;
-	}
 }

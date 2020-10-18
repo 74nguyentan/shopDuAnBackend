@@ -47,7 +47,7 @@ public class MatHang implements Serializable{
 	private String moTa;
 	
 	@Column(length = 100)
-	private int soLuong;
+	private Date thoiHan;
 	
 	@Column(length = 100)
 	private String diaChiBan;
@@ -60,13 +60,8 @@ public class MatHang implements Serializable{
 	@CreationTimestamp
 	private Date ngayLap;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@UpdateTimestamp
-	private Date ngaySua;
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LoaiHang_id")
+	@JoinColumn(name = "Id_loaiHang")
 	private LoaiHang loaiHang;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -183,12 +178,12 @@ public class MatHang implements Serializable{
 		this.moTa = moTa;
 	}
 
-	public int getSoLuong() {
-		return soLuong;
+	public Date getThoiHan() {
+		return thoiHan;
 	}
 
-	public void setSoLuong(int soLuong) {
-		this.soLuong = soLuong;
+	public void setThoiHan(Date thoiHan) {
+		this.thoiHan = thoiHan;
 	}
 
 	public String getDiaChiBan() {
@@ -215,13 +210,4 @@ public class MatHang implements Serializable{
 		this.ngayLap = ngayLap;
 	}
 
-	public Date getNgaySua() {
-		return ngaySua;
-	}
-
-	public void setNgaySua(Date ngaySua) {
-		this.ngaySua = ngaySua;
-	}
-	
-	
 }

@@ -38,10 +38,7 @@ public class BinhLuan implements Serializable {
     @CreationTimestamp
     private Date ngayLap;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @UpdateTimestamp
-    private Date ngaySua;
+
 
 	public int getId() {
 		return id;
@@ -83,15 +80,7 @@ public class BinhLuan implements Serializable {
 		this.ngayLap = ngayLap;
 	}
 
-	public Date getNgaySua() {
-		return ngaySua;
-	}
 
-	public void setNgaySua(Date ngaySua) {
-		this.ngaySua = ngaySua;
-	}
-
-	
 	
    
 }
