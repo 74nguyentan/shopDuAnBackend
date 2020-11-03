@@ -49,7 +49,7 @@ public class LoaiHang implements Serializable{
 	public List<MatHang> getMatHang() {
 		return matHang;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	public void setMatHang(List<MatHang> matHang) {
 		this.matHang = matHang;
 	}

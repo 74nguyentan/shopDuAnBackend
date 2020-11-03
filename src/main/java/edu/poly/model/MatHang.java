@@ -52,8 +52,20 @@ public class MatHang implements Serializable{
 	@Column(length = 100)
 	private String diaChiBan;
 	
+	@Column(length = 12)
+	private String dienThoai;
+	
+	public String getDienThoai() {
+		return dienThoai;
+	}
+
+	public void setDienThoai(String dienThoai) {
+		this.dienThoai = dienThoai;
+	}
+
 	@Column(length = 20)
 	private boolean trangThai;
+	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
