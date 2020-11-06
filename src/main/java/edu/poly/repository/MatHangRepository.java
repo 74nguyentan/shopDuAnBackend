@@ -17,4 +17,5 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	//List<MatHang> findMatHangByLoaiHangId(Integer id);
 //	Optional<MatHang> findByName(String tenHang);
 	List<MatHang> findByLoaiHangId(@Param("id") Integer id);
+	
 }

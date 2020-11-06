@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -72,9 +73,11 @@ public class MatHang implements Serializable{
 	@CreationTimestamp
 	private Date ngayLap;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Id_loaiHang")
 	private LoaiHang loaiHang;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Users_id")
@@ -93,11 +96,11 @@ public class MatHang implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	@JsonIgnore
+	
 	public LoaiHang getLoaiHang() {
 		return loaiHang;
 	}
-	
+
 	public void setLoaiHang(LoaiHang loaiHang) {
 		this.loaiHang = loaiHang;
 	}
@@ -220,6 +223,34 @@ public class MatHang implements Serializable{
 
 	public void setNgayLap(Date ngayLap) {
 		this.ngayLap = ngayLap;
+	}
+
+	public MatHang(int id, String tenHang, double gia, String xuatXu, String hinh0, String hinh1, String hinh2,
+			String hinh3, String moTa, Date thoiHan, String diaChiBan, String dienThoai, boolean trangThai,
+			Date ngayLap, LoaiHang loaiHang, Users users, List<BinhLuan> binhLuan, List<DanhGia> danhGia) {
+		super();
+		this.id = id;
+		this.tenHang = tenHang;
+		this.gia = gia;
+		this.xuatXu = xuatXu;
+		this.hinh0 = hinh0;
+		this.hinh1 = hinh1;
+		this.hinh2 = hinh2;
+		this.hinh3 = hinh3;
+		this.moTa = moTa;
+		this.thoiHan = thoiHan;
+		this.diaChiBan = diaChiBan;
+		this.dienThoai = dienThoai;
+		this.trangThai = trangThai;
+		this.ngayLap = ngayLap;
+		this.loaiHang = loaiHang;
+		this.users = users;
+		this.binhLuan = binhLuan;
+		this.danhGia = danhGia;
+	}
+
+	public MatHang() {
+		super();
 	}
 
 }
