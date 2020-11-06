@@ -1,48 +1,127 @@
 package edu.poly.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "UserModels")
+@Table(name = "users")
 public class Users {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(length = 50)
 	private String hoVaTen;
+
+	@Column(length = 150)
 	private String hinhAnhUser;
+
+	@Column(length = 150)
 	private String matKhau;
+
+	@Column(length = 150)
+	private String xacNhanMatKhau;
+
+	@Column(length = 20)
 	private boolean vaiTro;
+
+	@Column(length = 50)
+
 	private String email;
+
+	@Column(length = 12)
 	private String dienThoai;
-	private String diaChiUser;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@CreationTimestamp
 	private Date ngayLap;
+
+	@Column(length = 12)
+	private String diaChiUser;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private List<BinhLuan> binhLuan;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private List<DanhGia> danhGia;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private List<MatHang> matHang;
 
 	public Users() {
 		super();
 	}
 
-	public Users(int id, String hoVaTen, String hinhAnhUser, String matKhau, boolean vaiTro, String email,
-			String dienThoai, String diaChiUser, Date ngayLap) {
+	public Users(int id, String hoVaTen, String hinhAnhUser, String matKhau, String xacNhanMatKhau, boolean vaiTro,
+			String email, String dienThoai, Date ngayLap, String diaChiUser, List<BinhLuan> binhLuan,
+			List<DanhGia> danhGia, List<MatHang> matHang) {
 		super();
 		this.id = id;
 		this.hoVaTen = hoVaTen;
 		this.hinhAnhUser = hinhAnhUser;
 		this.matKhau = matKhau;
+		this.xacNhanMatKhau = xacNhanMatKhau;
 		this.vaiTro = vaiTro;
 		this.email = email;
 		this.dienThoai = dienThoai;
-		this.diaChiUser = diaChiUser;
 		this.ngayLap = ngayLap;
+		this.diaChiUser = diaChiUser;
+		this.binhLuan = binhLuan;
+		this.danhGia = danhGia;
+		this.matHang = matHang;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
+	public List<BinhLuan> getBinhLuan() {
+		return binhLuan;
+	}
+
+	public void setBinhLuan(List<BinhLuan> binhLuan) {
+		this.binhLuan = binhLuan;
+	}
+
+	@JsonIgnore
+	public List<DanhGia> getDanhGia() {
+		return danhGia;
+	}
+
+	@JsonIgnoreProperties
+	public void setDanhGia(List<DanhGia> danhGia) {
+		this.danhGia = danhGia;
+	}
+
+	@JsonIgnore
+	public List<MatHang> getMatHang() {
+		return matHang;
+	}
+
+	@JsonIgnoreProperties
+	public void setMatHang(List<MatHang> matHang) {
+		this.matHang = matHang;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -51,7 +130,6 @@ public class Users {
 		this.id = id;
 	}
 
-	@Column(name = "hoVaTen", nullable = false)
 	public String getHoVaTen() {
 		return hoVaTen;
 	}
@@ -60,16 +138,6 @@ public class Users {
 		this.hoVaTen = hoVaTen;
 	}
 
-	@Column(name = "hinhAnhUser")
-	public String getHinhAnhUser() {
-		return hinhAnhUser;
-	}
-
-	public void setHinhAnhUser(String hinhAnhUser) {
-		this.hinhAnhUser = hinhAnhUser;
-	}
-
-	@Column(name = "matKhau", nullable = false)
 	public String getMatKhau() {
 		return matKhau;
 	}
@@ -78,7 +146,22 @@ public class Users {
 		this.matKhau = matKhau;
 	}
 
-	@Column(name = "vaiTro", nullable = false)
+	public String getXacNhanMatKhau() {
+		return xacNhanMatKhau;
+	}
+
+	public void setXacNhanMatKhau(String xacNhanMatKhau) {
+		this.xacNhanMatKhau = xacNhanMatKhau;
+	}
+
+	public String getHinhAnhUser() {
+		return hinhAnhUser;
+	}
+
+	public void setHinhAnhUser(String hinhAnhUser) {
+		this.hinhAnhUser = hinhAnhUser;
+	}
+
 	public boolean isVaiTro() {
 		return vaiTro;
 	}
@@ -87,7 +170,6 @@ public class Users {
 		this.vaiTro = vaiTro;
 	}
 
-	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -96,7 +178,6 @@ public class Users {
 		this.email = email;
 	}
 
-	@Column(name = "dienThoai", nullable = false)
 	public String getDienThoai() {
 		return dienThoai;
 	}
@@ -105,16 +186,6 @@ public class Users {
 		this.dienThoai = dienThoai;
 	}
 
-	@Column(name = "diaChiUser", nullable = false)
-	public String getDiaChiUser() {
-		return diaChiUser;
-	}
-
-	public void setDiaChiUser(String diaChiUser) {
-		this.diaChiUser = diaChiUser;
-	}
-
-	@Column(name = "ngayLap") 
 	public Date getNgayLap() {
 		return ngayLap;
 	}
@@ -123,10 +194,12 @@ public class Users {
 		this.ngayLap = ngayLap;
 	}
 
-	@Override
-	public String toString() {
-		return "UseTestModel [id = " + id + " , hoVaTen = " + hoVaTen + " ,hinhAnhUser = " + hinhAnhUser + " , matKhau = "
-				+ matKhau + ",vaiTro = " + vaiTro + ", email = " + email + ",dienThoai = " + dienThoai
-				+ ",diaChiUser = " + diaChiUser + ",ngayLap = " + ngayLap + " ]";
+	public String getDiaChiUser() {
+		return diaChiUser;
+	}
+
+	public void setDiaChiUser(String diaChiUser) {
+
+		this.diaChiUser = diaChiUser;
 	}
 }
