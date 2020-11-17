@@ -33,7 +33,7 @@ public class Users {
 	@Column(length = 150)
 	private String hoVaTen;
 
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinhAnhUser;
 
 	@Column(length = 150)
