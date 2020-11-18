@@ -5,6 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,19 +24,19 @@ public class BinhLuan implements Serializable {
     @Column(length = 100)
     private String noiDungBinhLuan;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Users users;
     
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MatHang_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MatHang MatHang;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @CreationTimestamp
+    @Column(length = 100)
     private Date ngayLap;
 
 
@@ -55,19 +56,19 @@ public class BinhLuan implements Serializable {
 	public void setNoiDungBinhLuan(String noiDungBinhLuan) {
 		this.noiDungBinhLuan = noiDungBinhLuan;
 	}
-
+	@JsonIgnore
 	public Users getUsers() {
 		return users;
 	}
-	@JsonIgnore
+	
 	public void setUsers(Users users) {
 		this.users = users;
 	}
-
+	@JsonIgnore
 	public MatHang getMatHang() {
 		return MatHang;
 	}
-	@JsonIgnore
+	
 	public void setMatHang(MatHang matHang) {
 		MatHang = matHang;
 	}

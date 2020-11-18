@@ -1,10 +1,9 @@
 package edu.poly.model;
 
-import java.io.Serializable;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,17 +23,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "users")
+@Table(name = "UserModels")
 public class Users {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(length = 50)
+	@Column(length = 150)
 	private String hoVaTen;
 
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinhAnhUser;
 
 	@Column(length = 150)
@@ -46,7 +45,7 @@ public class Users {
 	@Column(length = 20)
 	private boolean vaiTro;
 
-	@Column(length = 50)
+	@Column(length = 100)
 
 	private String email;
 
@@ -58,7 +57,7 @@ public class Users {
 	@CreationTimestamp
 	private Date ngayLap;
 
-	@Column(length = 12)
+	@Column(length = 200)
 	private String diaChiUser;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")

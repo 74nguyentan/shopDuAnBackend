@@ -23,7 +23,7 @@ public class MatHang implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(length = 50)
+	@Column(length = 100)
 	private String tenHang;
 	
 	@Column(length = 50)
@@ -32,16 +32,16 @@ public class MatHang implements Serializable{
 	@Column(length = 50)
 	private String xuatXu;
 	
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinh0;
 	
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinh1;
 	
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinh2;
 	
-	@Column(length = 150)
+	@Column(length = 300)
 	private String hinh3;
 	
 	@Column(length = 1000)
@@ -50,7 +50,7 @@ public class MatHang implements Serializable{
 	@Column(length = 100)
 	private Date thoiHan;
 	
-	@Column(length = 100)
+	@Column(length = 200)
 	private String diaChiBan;
 	
 	@Column(length = 12)
