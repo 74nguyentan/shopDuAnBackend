@@ -92,5 +92,10 @@ public class MatHangController {
     public List<MatHang> getidloaihang(@PathVariable("id") Integer id){
     	return mathangrepository.findByLoaiHangId(id);
     }
+    
+    @GetMapping("/iduser/{id}")
+    public List<MatHang> getidusers(@PathVariable("id") Integer id){
+    	return mathangrepository.getAllByUsers_Id(id);
+    }
      
 }

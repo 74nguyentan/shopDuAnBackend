@@ -10,12 +10,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import edu.poly.model.BinhLuan;
 import edu.poly.model.MatHang;
 
 @Repository
 public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	//List<MatHang> findMatHangByLoaiHangId(Integer id);
 //	Optional<MatHang> findByName(String tenHang);
+	@Query("SELECT m FROM MatHang m WHERE m.users.id = ?1")
+	List<MatHang> getAllByUsers_Id(@Param("id_user") Integer id_user);		
 	List<MatHang> findByLoaiHangId(@Param("id") Integer id);
+	
+	
 	
 }
