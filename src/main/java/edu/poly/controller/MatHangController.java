@@ -92,8 +92,5 @@ public class MatHangController {
     public List<MatHang> getidloaihang(@PathVariable("id") Integer id){
     	return mathangrepository.findByLoaiHangId(id);
     }
-    
-    
-    
-   
+     
 }

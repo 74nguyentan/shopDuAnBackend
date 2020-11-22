@@ -32,16 +32,16 @@ public class MatHang implements Serializable{
 	@Column(length = 50)
 	private String xuatXu;
 	
-	@Column(length = 300)
+	@Column(name = "hinh0", columnDefinition="varchar(MAX)")
 	private String hinh0;
 	
-	@Column(length = 300)
+	@Column(name = "hinh1", columnDefinition="varchar(MAX)")
 	private String hinh1;
 	
-	@Column(length = 300)
+	@Column(name = "hinh2", columnDefinition="varchar(MAX)")
 	private String hinh2;
 	
-	@Column(length = 300)
+	@Column(name = "hinh3", columnDefinition="varchar(MAX)")
 	private String hinh3;
 	
 	@Column(length = 1000)
@@ -104,11 +104,11 @@ public class MatHang implements Serializable{
 	public void setLoaiHang(LoaiHang loaiHang) {
 		this.loaiHang = loaiHang;
 	}
-
+	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	public Users getUsers() {
 		return users;
 	}
-	@JsonIgnore
+	
 	public void setUsers(Users users) {
 		this.users = users;
 	}

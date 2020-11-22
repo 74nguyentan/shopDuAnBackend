@@ -12,6 +12,6 @@ import edu.poly.model.MatHang;
 
 public interface BinhLuanRepository extends JpaRepository<BinhLuan, Integer>{
 	@Query("SELECT b FROM BinhLuan b WHERE b.MatHang.id = ?1")
-	List<BinhLuan> getAllByMatHang_Id(Integer id_mathang);
+	List<BinhLuan> getAllByMatHang_Id(@Param("id") Integer id);	
 	List<BinhLuan> findByUsersId(@Param("id") Integer id);
 }

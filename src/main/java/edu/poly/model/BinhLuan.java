@@ -24,16 +24,14 @@ public class BinhLuan implements Serializable {
     @Column(length = 100)
     private String noiDungBinhLuan;
 
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Users users;
     
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MatHang_id")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MatHang MatHang;
 
     @Column(length = 100)

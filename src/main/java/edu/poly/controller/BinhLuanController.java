@@ -24,6 +24,7 @@ import edu.poly.repository.MatHangRepository;
 public class BinhLuanController {
 	@Autowired
 	private BinhLuanRepository binhluanrepository;
+	
 	@GetMapping("/binhluan")
     public List<BinhLuan> getAllBinhLuans() {
         return binhluanrepository.findAll();
@@ -37,10 +38,10 @@ public class BinhLuanController {
     public List<BinhLuan> getiduser(@PathVariable("id") Integer id){
     	return binhluanrepository.findByUsersId(id);
     }
-	
+		
 	@GetMapping("/idmathang/{id}")
-    public List<BinhLuan> getidloaihang(@PathVariable("id") Integer id_mathang){
-    	return binhluanrepository.getAllByMatHang_Id(id_mathang);
+    public List<BinhLuan> getidmathang(@PathVariable("id") Integer id){
+    	return binhluanrepository.getAllByMatHang_Id(id);
    }
     
 }
