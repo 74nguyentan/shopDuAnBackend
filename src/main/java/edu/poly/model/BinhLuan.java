@@ -54,7 +54,7 @@ public class BinhLuan implements Serializable {
 	public void setNoiDungBinhLuan(String noiDungBinhLuan) {
 		this.noiDungBinhLuan = noiDungBinhLuan;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	public Users getUsers() {
 		return users;
 	}
@@ -62,7 +62,7 @@ public class BinhLuan implements Serializable {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
-	@JsonIgnore
+//	@JsonIgnore
 	public MatHang getMatHang() {
 		return MatHang;
 	}
