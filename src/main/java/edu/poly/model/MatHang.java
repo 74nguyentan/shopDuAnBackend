@@ -44,7 +44,7 @@ public class MatHang implements Serializable{
 	@Column(name = "hinh3", columnDefinition="varchar(MAX)")
 	private String hinh3;
 	
-	@Column(length = 1000)
+	@Column(columnDefinition="nvachar(MAX)")
 	private String moTa;
 	
 	@Column(length = 100)

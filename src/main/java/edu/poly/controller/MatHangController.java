@@ -1,5 +1,6 @@
 package edu.poly.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,8 +36,9 @@ public class MatHangController {
 	
 	// hiển thị tất cả mặt hàng http//localhost/8989/api/mathang
 	@GetMapping("/mathang")
-    public List<MatHang> getAllMatHangDetails() {
-        return mathangrepository.findAll();
+    public List<MatHang> getAllMatHangDetails(Date ngaylap) {
+		Sort sort = Sort.by("ngayLap").descending();
+        return mathangrepository.findAll(sort);
     }
 	
 	// hiển thị mặt hàng theo id http//localhost/8989/api/mathang/{id}
@@ -70,6 +74,7 @@ public class MatHangController {
 			MatHang.setXuatXu(MatHangDetails.getXuatXu());
 			MatHang.setNgayLap(MatHangDetails.getNgayLap());
 			MatHang.setDiaChiBan(MatHangDetails.getDiaChiBan());
+			MatHang.setLoaiHang(MatHangDetails.getLoaiHang());
 			MatHang.setTrangThai(MatHangDetails.isTrangThai());
         final MatHang updatedMatHang = mathangrepository.save(MatHang);
         return ResponseEntity.ok(updatedMatHang);
@@ -90,12 +95,19 @@ public class MatHangController {
     
     @GetMapping("/idloaihang/{id}")
     public List<MatHang> getidloaihang(@PathVariable("id") Integer id){
-    	return mathangrepository.findByLoaiHangId(id);
+    	Sort sort = Sort.by("ngayLap").descending();
+    	return mathangrepository.findByLoaiHangId(id, sort);
     }
     
     @GetMapping("/iduser/{id}")
     public List<MatHang> getidusers(@PathVariable("id") Integer id){
-    	return mathangrepository.getAllByUsers_Id(id);
+    	Sort sort = Sort.by("ngayLap").descending();
+    	return mathangrepository.getAllByUsers_Id(id, sort);
     }
-     
+    
+    @GetMapping("/top10/{id}")
+    public List<MatHang> gettoploaihang(@PathVariable("id") Integer id){
+    	Sort sort = Sort.by("ngayLap").descending();
+    	return mathangrepository.findFirst10ByLoaiHangId(id, sort);
+    }
 }
