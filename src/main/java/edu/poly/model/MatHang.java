@@ -112,6 +112,8 @@ public class MatHang implements Serializable{
 	public void setUsers(Users users) {
 		this.users = users;
 	}
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	@JsonIgnore
 	public List<BinhLuan> getBinhLuan() {
 		return binhLuan;
