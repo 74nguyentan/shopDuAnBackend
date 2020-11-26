@@ -67,8 +67,10 @@ public class Users {
 	private List<DanhGia> danhGia;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-	
 	private List<MatHang> matHang;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private List<LichSu> lichSu;
 
 	public Users() {
 		super();
