@@ -32,19 +32,19 @@ public class MatHang implements Serializable{
 	@Column(length = 50)
 	private String xuatXu;
 	
-	@Column(name = "hinh0", columnDefinition="varchar(MAX)")
+	@Column(length = 65535)
 	private String hinh0;
 	
-	@Column(name = "hinh1", columnDefinition="varchar(MAX)")
+	@Column(length = 65535)
 	private String hinh1;
 	
-	@Column(name = "hinh2", columnDefinition="varchar(MAX)")
+	@Column(length = 65535)
 	private String hinh2;
 	
-	@Column(name = "hinh3", columnDefinition="varchar(MAX)")
+	@Column(length = 65535)
 	private String hinh3;
 	
-	@Column(columnDefinition="nvachar(MAX)")
+	@Column(length = 65535)
 	private String moTa;
 	
 	@Column(length = 100)
