@@ -27,5 +27,16 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	
 	List<MatHang> findFirst10ByLoaiHangId(@Param("id") Integer id, Sort sort);
 	
+	List<MatHang> findMatHangByLoaiHangId(@Param("id") Integer id);
 	
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= ?1 ")
+	List<MatHang> getAllgia(@Param("gia") Double gia, Sort sort);	
+	
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= 300 and m.gia >= 100 ")
+	List<MatHang> getgia(@Param("gia") Double gia, Sort sort);	
+	
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= 1000 and m.gia >= 300 ")
+	List<MatHang> getprice(@Param("gia") Double gia, Sort sort);	
+	
+
 }

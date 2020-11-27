@@ -110,4 +110,29 @@ public class MatHangController {
     	Sort sort = Sort.by("ngayLap").descending();
     	return mathangrepository.findFirst10ByLoaiHangId(id, sort);
     }
+    
+    
+  @GetMapping("/fitler/{id}")
+  public List<MatHang> getfitler(@PathVariable("id") Integer id){
+  	
+  	return mathangrepository.findMatHangByLoaiHangId(id);
+  }
+  
+  
+  @GetMapping("/gia100/{gia}")
+  public List<MatHang> getfitler(@PathVariable("gia") Double gia){
+	  Sort sort = Sort.by("ngayLap").descending();
+  	return mathangrepository.getAllgia(gia,sort);
+  }
+
+  @GetMapping("/gia300/{gia}")
+  public List<MatHang> getfitler1(@PathVariable("gia") Double gia){
+	  Sort sort = Sort.by("ngayLap").descending();
+  	return mathangrepository.getgia(gia,sort);
+  }
+  @GetMapping("/gia1000/{gia}")
+  public List<MatHang> getfitler11(@PathVariable("gia") Double gia){
+	  Sort sort = Sort.by("ngayLap").descending();
+  	return mathangrepository.getprice(gia,sort);
+  }
 }
