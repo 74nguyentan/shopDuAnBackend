@@ -49,7 +49,7 @@ public class MatHangController {
           .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
         return ResponseEntity.ok().body(MatHang);
     }
-    
+  
     // thêm mặt hàng nhớ nhấn post nhé không phải là get http//localhost/8989/api/mathang
     @PostMapping("/mathang")
     public MatHang createMatHang(@Valid @RequestBody MatHang MatHang) {
@@ -111,28 +111,38 @@ public class MatHangController {
     	return mathangrepository.findFirst10ByLoaiHangId(id, sort);
     }
     
-    
+   //tìm kiếm theo loại hàng 
   @GetMapping("/fitler/{id}")
   public List<MatHang> getfitler(@PathVariable("id") Integer id){
   	
   	return mathangrepository.findMatHangByLoaiHangId(id);
   }
   
+  //tìm kiếm theo tên mat hang 
+  @GetMapping("/mathang1/{tenHang}")
+  public List<MatHang> getmathang(@PathVariable("tenHang") String tenHang){
+  	return mathangrepository.findBytenHangContaining(tenHang);
+  }
   
+  //tìm kiếm theo giá bé hơn 100
   @GetMapping("/gia100/{gia}")
   public List<MatHang> getfitler(@PathVariable("gia") Double gia){
 	  Sort sort = Sort.by("ngayLap").descending();
   	return mathangrepository.getAllgia(gia,sort);
   }
 
+  //tìm kiếm theo giá bé hơn 300 và lớn 100
   @GetMapping("/gia300/{gia}")
   public List<MatHang> getfitler1(@PathVariable("gia") Double gia){
 	  Sort sort = Sort.by("ngayLap").descending();
   	return mathangrepository.getgia(gia,sort);
   }
+  //tìm kiếm theo giá lớn hơn 1000
   @GetMapping("/gia1000/{gia}")
   public List<MatHang> getfitler11(@PathVariable("gia") Double gia){
 	  Sort sort = Sort.by("ngayLap").descending();
   	return mathangrepository.getprice(gia,sort);
   }
+  
+  
 }
