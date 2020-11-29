@@ -1,5 +1,6 @@
 package edu.poly.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class FavouriteController {
 	
 	@PostMapping("/favourite")
 	public productFavourite createProFavourite(@Valid @RequestBody productFavourite productFavourite) {
+		productFavourite.setNgayLap(new Date());
 		return favouriteRepository.save(productFavourite);
 	}
 	
@@ -38,6 +40,12 @@ public class FavouriteController {
 	public List<productFavourite> getFavourite(@PathVariable("id") Integer id){
 	 	Sort sort = Sort.by("ngayLap").descending();
     	return favouriteRepository.getAllByUsers_Id(id, sort);
+	}
+	
+	@GetMapping("/favourite/mathang/{id}")
+	public List<productFavourite> getFavouriteByMatHang(@PathVariable("id") Integer id){
+	 
+    	return favouriteRepository.findmathangid(id);
 	}
 
 	  @DeleteMapping("/favourite/{id}")

@@ -89,6 +89,9 @@ public class MatHang implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LichSu> lichSu;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<productFavourite> productFavourite;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
 	private List<DanhGia> danhGia;
 
