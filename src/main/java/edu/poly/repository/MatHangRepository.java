@@ -37,6 +37,6 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	
 	@Query("SELECT m FROM MatHang m WHERE m.gia <= 1000 and m.gia >= 300 ")
 	List<MatHang> getprice(@Param("gia") Double gia, Sort sort);	
-	
+
 
 }
