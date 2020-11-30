@@ -4,7 +4,7 @@ package edu.poly.model;
 import java.util.Date;
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,6 +73,12 @@ public class Users {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private List<LichSu> lichSu;
+	
+	 @OneToMany(mappedBy = "toUser",
+	            cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	    @Fetch(value = FetchMode.SUBSELECT)
+	 @JsonIgnore
+	 private List<NhanTin> nhanTin;
 
 	public Users() {
 		super();

@@ -27,4 +27,6 @@ public interface LichSuRepository extends JpaRepository<LichSu, Integer> {
 	@Query("SELECT l FROM LichSu l WHERE l.MatHang.id = ?1")
 	List<LichSu> findmathangid(@Param("id") Integer id);
 	
+	
+	
 }
