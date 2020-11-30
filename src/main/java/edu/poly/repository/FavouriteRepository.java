@@ -14,4 +14,7 @@ import edu.poly.model.productFavourite;
 public interface FavouriteRepository extends JpaRepository<productFavourite, Integer> {
 	@Query("SELECT f FROM productFavourite f WHERE f.users.id = ?1")
 	List<productFavourite> getAllByUsers_Id(@Param("id_user") Integer id_user, Sort sort);	
+	
+	@Query("SELECT l FROM productFavourite l WHERE l.MatHang.id = ?1")
+	List<productFavourite> findmathangid(@Param("id") Integer id);
 }

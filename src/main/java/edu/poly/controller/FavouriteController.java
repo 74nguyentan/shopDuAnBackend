@@ -1,5 +1,6 @@
 package edu.poly.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,33 +23,39 @@ import edu.poly.model.MatHang;
 import edu.poly.model.productFavourite;
 import edu.poly.repository.FavouriteRepository;
 
-@RestController 
+@RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/favourite")
 public class FavouriteController {
 	@Autowired
 	private FavouriteRepository favouriteRepository;
-	
+
 	@PostMapping("/favourite")
 	public productFavourite createProFavourite(@Valid @RequestBody productFavourite productFavourite) {
+		productFavourite.setNgayLap(new Date());
 		return favouriteRepository.save(productFavourite);
 	}
-	
+
 	@GetMapping("/favourite/{id}")
-	public List<productFavourite> getFavourite(@PathVariable("id") Integer id){
-	 	Sort sort = Sort.by("ngayLap").descending();
-    	return favouriteRepository.getAllByUsers_Id(id, sort);
+	public List<productFavourite> getFavourite(@PathVariable("id") Integer id) {
+		Sort sort = Sort.by("ngayLap").descending();
+		return favouriteRepository.getAllByUsers_Id(id, sort);
 	}
 
-	  @DeleteMapping("/favourite/{id}")
-	    public Map<String, Boolean> deleteFavourite(@PathVariable(value = "id") int id)
-	         throws ResourceNotFoundException {
-	        productFavourite fv = favouriteRepository.findById(id)
-	       .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + id));
+	@GetMapping("/favourite/mathang/{id}")
+	public List<productFavourite> getFavouriteByMatHang(@PathVariable("id") Integer id) {
 
-	        favouriteRepository.delete(fv);
-	        Map<String, Boolean> response = new HashMap<>();
-	        response.put("deleted", Boolean.TRUE);
-	        return response;
-	    }
+		return favouriteRepository.findmathangid(id);
+	}
+
+	@DeleteMapping("/favourite/{id}")
+	public Map<String, Boolean> deleteFavourite(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+		productFavourite fv = favouriteRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id: " + id));
+
+		favouriteRepository.delete(fv);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
+	}
 }

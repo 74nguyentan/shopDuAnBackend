@@ -10,6 +10,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,6 +28,7 @@ import com.jayway.jsonpath.Option;
 import edu.poly.model.BinhLuan;
 import edu.poly.model.LichSu;
 import edu.poly.model.MatHang;
+import edu.poly.model.Users;
 import edu.poly.repository.LichSuRepository;
 
 @RestController @CrossOrigin(origins = "http://localhost:4200")
@@ -36,7 +38,7 @@ public class LichSuController {
 	
 	 @PostMapping("/lichsu")
 	    public LichSu createlichsu(@Valid @RequestBody LichSu lichsu) {
-	        return lichsurepository.save(lichsu);
+			 return lichsurepository.save(lichsu);
 	    }
 	 
 	 @GetMapping("/lichsu")
@@ -54,18 +56,20 @@ public class LichSuController {
 		 lichsu.setNgayLap(new Date());
 		 final LichSu updatedlichsu = lichsurepository.save(lichsu);
 	        return ResponseEntity.ok(updatedlichsu);
-		 
-		 
+		         
 	 }
 	 
-//	 @DeleteMapping("/lichsu/{Users_id}")
-//	    public LichSu deletelichsu(@PathVariable(value = "Users_id") int Users_id){
-//		 LichSu lichsu = lichsurepository.findByUsersId(Users_id);		 
-//		 return (LichSu) lichsurepository.deleteLichsuWithIds(lichsu);
-//	    }
+	 
+//	 @DeleteMapping("/lichsu")
+//	 public void deleteSomeUser(Users users) {
+//		 List<LichSu> lichsu = lichsurepository.deleteLichsuWithIds(users);
+//		 
+//	 }
 	 @GetMapping("/idlichsu/{id}")
 	    public List<LichSu> getidlichsu(@PathVariable("id") Integer id){
-	    	return lichsurepository.findByUsersId(id);
+		 Sort sort = Sort.by("ngayLap").descending();
+	    	return lichsurepository.findByUsersId(id, sort);
 	    }
+	 
 	 
 }

@@ -83,11 +83,14 @@ public class MatHang implements Serializable{
 	@JoinColumn(name = "Users_id")
 	private Users users;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BinhLuan> binhLuan;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LichSu> lichSu;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<productFavourite> productFavourite;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
 	private List<DanhGia> danhGia;

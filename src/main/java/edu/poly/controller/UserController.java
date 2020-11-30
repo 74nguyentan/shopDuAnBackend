@@ -27,7 +27,7 @@ public class UserController {
 	private UserRepository userRepository;
 
 	// create user
-	@PostMapping("/users")
+	@PostMapping("/users") 
 	public Users createusers(@Validated @RequestBody Users users) {
 		users.setNgayLap(new Date());
 		users.setHinhAnhUser("https://drive.google.com/uc?export=download&id=1iS9kCSq3r0jnGvyNGicWp_WJOqH5kpEN");
