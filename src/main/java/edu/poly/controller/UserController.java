@@ -1,12 +1,15 @@
 package edu.poly.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import edu.poly.model.Users;
 import edu.poly.repository.UserRepository;
 
@@ -27,11 +31,16 @@ public class UserController {
 	private UserRepository userRepository;
 
 	// create user
-	@PostMapping("/users") 
+	@PostMapping("/users")
 	public Users createusers(@Validated @RequestBody Users users) {
 		users.setNgayLap(new Date());
 		users.setHinhAnhUser("https://drive.google.com/uc?export=download&id=1iS9kCSq3r0jnGvyNGicWp_WJOqH5kpEN");
 		return userRepository.save(users);
+	}
+
+	@GetMapping("/users")
+	public List<Users> getAllUser() {
+		return userRepository.findAll();
 	}
 
 	// tìm theo id
@@ -61,4 +70,15 @@ public class UserController {
 		final Users updateUser = userRepository.save(user);
 		return ResponseEntity.ok(updateUser);
 	}
+	
+    @DeleteMapping("/users/{id}")
+    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Integer id)
+         throws ResourceNotFoundException {
+    	Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("id user not found"));
+
+        userRepository.delete(user);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
 }
