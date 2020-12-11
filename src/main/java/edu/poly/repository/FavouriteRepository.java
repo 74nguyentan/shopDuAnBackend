@@ -17,4 +17,9 @@ public interface FavouriteRepository extends JpaRepository<productFavourite, Int
 	
 	@Query("SELECT l FROM productFavourite l WHERE l.MatHang.id = ?1")
 	List<productFavourite> findmathangid(@Param("id") Integer id);
+	
+	@Query("select new map(l.MatHang.tenHang) FROM productFavourite "
+			+ "l WHERE l.yeuThich = true GROUP BY l.MatHang.tenHang Having "
+			+ "COUNT(l.MatHang.tenHang) > 2 ORDER BY COUNT(l.MatHang.tenHang) DESC")
+	Object [] getthongkeyeuthich();
 }

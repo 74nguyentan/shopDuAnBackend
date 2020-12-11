@@ -71,5 +71,10 @@ public class LichSuController {
 	    	return lichsurepository.findByUsersId(id, sort);
 	    }
 	 
+	 @GetMapping("/thongkelichsu")
+	  public Object[] getthongke() {
+		  Object[] thongke = lichsurepository.getthongkelichsu();
+	      return thongke;
+	  }
 	 
 }

@@ -162,16 +162,5 @@ public class MatHangController {
   public Object[] getthongke() {
 	  Object[] thongke = mathangrepository.getthongke();
       return thongke;
-      
-//      List<Object[]> thongke = mathangrepository.getthongke();
-//      ObjectMapper objectMapper = new ObjectMapper();
-//      Map<String, Integer> resultMap = new HashMap<String, Integer>(thongke.size());
-//      for (Object[] result : thongke)
-//          resultMap.put((String)result[0], ((Long)result[1]).intValue() );
-//      final JsonNode json = objectMapper.valueToTree(resultMap);
-//      return json;
-//  }
-  
- 
   }
 }

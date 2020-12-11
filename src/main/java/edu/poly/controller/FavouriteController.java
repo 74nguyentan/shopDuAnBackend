@@ -58,4 +58,10 @@ public class FavouriteController {
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+	
+	@GetMapping("/thongkeyeuthich")
+	  public Object[] getthongke() {
+		  Object[] thongke = favouriteRepository.getthongkeyeuthich();
+	      return thongke;
+	  }
 }
