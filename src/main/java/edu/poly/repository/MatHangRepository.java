@@ -53,6 +53,5 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	 @Query("SELECT new map(m.users.hoVaTen as hoVaTen,COUNT(m.tenHang) as soluong) FROM MatHang m GROUP BY m.users.hoVaTen")
 	    Object [] getthongke();
 
-	
 
 }
