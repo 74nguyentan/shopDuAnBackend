@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.poly.model.BinhLuan;
 import edu.poly.model.MatHang;
+import edu.poly.model.ThongKe;
 
 @Repository
 public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
@@ -36,11 +37,22 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	@Query("SELECT m FROM MatHang m WHERE m.gia <= ?1 ")
 	List<MatHang> getAllgia(@Param("gia") Double gia, Sort sort);	
 	
-	@Query("SELECT m FROM MatHang m WHERE m.gia <= 300 and m.gia >= 100 ")
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= 300000 and m.gia >= 100000 ")
 	List<MatHang> getgia(@Param("gia") Double gia, Sort sort);	
 	
-	@Query("SELECT m FROM MatHang m WHERE m.gia <= 1000 and m.gia >= 300 ")
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= 1000000 and m.gia >= 300000 ")
 	List<MatHang> getprice(@Param("gia") Double gia, Sort sort);	
+	
+	@Query("SELECT m FROM MatHang m WHERE m.ngayLap = ?1 ")
+	List<MatHang> getAllngaylap(@Param("ngaylap") Date ngaylap);	
+	
+//	@Query("SELECT m.users.id,  m.users.hoVaTen,  COUNT(m.tenHang)  FROM MatHang m Group by m.users.id, m.users.hoVaTen ")
+//	@Query("SELECT m.users.hoVaTen as hoVaTen , COUNT(m.tenHang) as soluong FROM MatHang m Group by m.users.hoVaTen ORDER BY COUNT(m.tenHang)")
+//	Object[] getthongke();
+	
+	 @Query("SELECT new map(m.users.hoVaTen as hoVaTen,COUNT(m.tenHang) as soluong) FROM MatHang m GROUP BY m.users.hoVaTen")
+	    Object [] getthongke();
+
 	
 
 }

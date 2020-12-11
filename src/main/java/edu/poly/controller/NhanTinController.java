@@ -46,6 +46,10 @@ public class NhanTinController {
 	    	return nhantinrepository.getAllByfromuser_Id(id);
 	    }
 	 
+	 @GetMapping("/to4users/{id}")
+	    public List<NhanTin> getto4user(@PathVariable("id") Integer id){
+	    	return nhantinrepository.getByto4user_Id(id);
+	    }
 	 
 
 }

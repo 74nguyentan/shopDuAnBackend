@@ -12,8 +12,11 @@ public interface NhaTinRepository extends JpaRepository<NhanTin, Integer> {
 	@Query("SELECT n FROM NhanTin n WHERE n.toUser.id = ?1")
 	List<NhanTin> getAllBytouser_Id(@Param("id") Integer id);
 	
-	@Query("SELECT n FROM NhanTin n WHERE n.fromUser.id = ?1")
+	@Query("SELECT n FROM NhanTin n WHERE n.fromUser.id = ?1 and n.toUser.id = 3 ")
 	List<NhanTin> getAllByfromuser_Id(@Param("id") Integer id);
+	
+	@Query("SELECT n FROM NhanTin n WHERE n.toUser.id = ?1 and n.fromUser.id = 4")
+	List<NhanTin> getByto4user_Id(@Param("id") Integer id);
 //	
 //	@Query("SELECT n FROM NhanTin n WHERE n.fromUser.id = ?1 and n.toUser.id = ?1 ")
 //	List<NhanTin> getAllByfromuser_Idandtouser_id(@Param("idfromuer") Integer idfromuer , @Param("idtouser") Integer idtouser);

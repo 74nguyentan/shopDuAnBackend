@@ -1,5 +1,6 @@
 package edu.poly.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.poly.model.MatHang;
+import edu.poly.model.ThongKe;
 import edu.poly.repository.MatHangRepository;
 
 
@@ -53,6 +59,7 @@ public class MatHangController {
     // thêm mặt hàng nhớ nhấn post nhé không phải là get http//localhost/8989/api/mathang
     @PostMapping("/mathang")
     public MatHang createMatHang(@Valid @RequestBody MatHang MatHang) {
+    	MatHang.setNgayLap(new Date());
         return mathangrepository.save(MatHang);
     }
     
@@ -74,7 +81,7 @@ public class MatHangController {
 			MatHang.setXuatXu(MatHangDetails.getXuatXu());
 			MatHang.setNgayLap(MatHangDetails.getNgayLap());
 			MatHang.setDiaChiBan(MatHangDetails.getDiaChiBan());
-			MatHang.setLoaiHang(MatHangDetails.getLoaiHang());
+//			MatHang.setLoaiHang(MatHangDetails.getLoaiHang());
 			MatHang.setTrangThai(MatHangDetails.isTrangThai());
         final MatHang updatedMatHang = mathangrepository.save(MatHang);
         return ResponseEntity.ok(updatedMatHang);
@@ -145,4 +152,26 @@ public class MatHangController {
   }
   
   
+  @GetMapping("/ngayLap")
+  public List<MatHang> getngaylap(@DateTimeFormat(pattern="yyyy-MM-dd") Date ngaylap){
+	  ngaylap = new Date() ;
+  	return mathangrepository.getAllngaylap(ngaylap);
+  }
+  
+  @GetMapping("/thongke")
+  public Object[] getthongke() {
+	  Object[] thongke = mathangrepository.getthongke();
+      return thongke;
+      
+//      List<Object[]> thongke = mathangrepository.getthongke();
+//      ObjectMapper objectMapper = new ObjectMapper();
+//      Map<String, Integer> resultMap = new HashMap<String, Integer>(thongke.size());
+//      for (Object[] result : thongke)
+//          resultMap.put((String)result[0], ((Long)result[1]).intValue() );
+//      final JsonNode json = objectMapper.valueToTree(resultMap);
+//      return json;
+//  }
+  
+ 
+  }
 }
