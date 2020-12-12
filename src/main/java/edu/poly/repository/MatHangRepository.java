@@ -34,7 +34,7 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 //	List<MatHang> findlikename(@Param("tenHang")String tenHang);
 	List<MatHang> findBytenHangContaining(@Param("tenHang")String tenHang);
 	
-	@Query("SELECT m FROM MatHang m WHERE m.gia <= ?1 ")
+	@Query("SELECT m FROM MatHang m WHERE m.gia <= ?100000 ")
 	List<MatHang> getAllgia(@Param("gia") Double gia, Sort sort);	
 	
 	@Query("SELECT m FROM MatHang m WHERE m.gia <= 300000 and m.gia >= 100000 ")
