@@ -46,7 +46,8 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 	@Query("SELECT m FROM MatHang m WHERE m.ngayLap = ?1 ")
 	List<MatHang> getAllngaylap(@Param("ngaylap") Date ngaylap);	
 	
-	@Query("SELECT new map(m.users.hoVaTen as hoVaTen,COUNT(m.tenHang) as soluong) FROM MatHang m GROUP BY m.users.hoVaTen ORDER BY COUNT(m.tenHang) DESC")
+	@Query("SELECT new map(m.users.hoVaTen as hoVaTen,COUNT(m.tenHang) as soluong)"
+			+ " FROM MatHang m GROUP BY m.users.hoVaTen ORDER BY COUNT(m.tenHang) DESC")
 	Object [] getthongke();
 	
 }

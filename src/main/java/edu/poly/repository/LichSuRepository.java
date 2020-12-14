@@ -27,8 +27,8 @@ public interface LichSuRepository extends JpaRepository<LichSu, Integer> {
 	@Query("SELECT l FROM LichSu l WHERE l.MatHang.id = ?1")
 	List<LichSu> findmathangid(@Param("id") Integer id);
 	
-	@Query("select new map(l.MatHang.tenHang) FROM LichSu"
-			+ " l GROUP BY l.MatHang.tenHang Having COUNT(l.MatHang.tenHang) > 2"
+	@Query("select new map(l.MatHang.tenHang as tenHang, COUNT(l.MatHang.id) as soluongmathang) FROM LichSu"
+			+ " l GROUP BY l.MatHang.tenHang"
 			+ " ORDER BY COUNT(l.MatHang.tenHang) DESC ")
 	Object [] getthongkelichsu();
 	
