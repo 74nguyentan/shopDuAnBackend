@@ -2,7 +2,7 @@ package edu.poly.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +18,14 @@ import edu.poly.model.Users;
 
 public interface LichSuRepository extends JpaRepository<LichSu, Integer> {
 
+	@Query("SELECT l FROM LichSu l WHERE l.users.id = ?1 and l.trangThai = true")
 	List<LichSu> findByUsersId(@Param("id") Integer id, Sort sort);
+//	List<LichSu> findByUsersId(@Param("id") Integer id, Sort sort);
+	
+	@Transactional
+	@Modifying
+	@Query("update LichSu l set l.trangThai = False where l.users.id = ?1")
+	void findByUsersId1(@Param("id") Integer id);
 	
 //	@Transactional
 //	@Modifying
@@ -31,5 +38,7 @@ public interface LichSuRepository extends JpaRepository<LichSu, Integer> {
 			+ " l GROUP BY l.MatHang.tenHang"
 			+ " ORDER BY COUNT(l.MatHang.tenHang) DESC ")
 	Object [] getthongkelichsu();
+	
+	
 	
 }

@@ -40,6 +40,17 @@ public class LichSu implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Users_id")
     private Users users;
+	
+	@Column(length = 20)
+	private boolean trangThai;
+
+	public boolean isTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(boolean trangThai) {
+		this.trangThai = trangThai;
+	}
 
 	public int getId() {
 		return id;

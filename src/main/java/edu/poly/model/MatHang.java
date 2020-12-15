@@ -94,7 +94,7 @@ public class MatHang implements Serializable{
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MatHang")
 	private List<DanhGia> danhGia;
-
+	
 	public int getId() {
 		return id;
 	}

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -63,5 +64,11 @@ public class FavouriteController {
 	  public Object[] getthongke() {
 		  Object[] thongke = favouriteRepository.getthongkeyeuthich();
 	      return thongke;
+	  }
+	
+	@GetMapping("/yeuthich/{id}")
+	 public Optional<productFavourite> getyeuthich(@PathVariable(value = "id") Integer id) {
+		 Optional<productFavourite> yeuthich = favouriteRepository.findById(id);
+	      return yeuthich;
 	  }
 }

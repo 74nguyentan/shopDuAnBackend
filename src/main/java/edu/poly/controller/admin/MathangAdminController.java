@@ -44,6 +44,12 @@ public class MathangAdminController {
         return response;
     }
     
+  //tìm kiếm theo tên mat hang 
+    @GetMapping("/mathang1/{tenHang}")
+    public List<MatHang> getmathang(@PathVariable("tenHang") String tenHang){
+    	return mathangrepository.findBytenHangContaining(tenHang);
+    }
+    
     @GetMapping("/thongke")
     public Object[] getthongke() {
   	  Object[] thongke = mathangrepository.getthongke();

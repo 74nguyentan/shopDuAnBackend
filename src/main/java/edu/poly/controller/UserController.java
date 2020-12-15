@@ -23,7 +23,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import edu.poly.model.Users;
 import edu.poly.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:4300")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/users")
 public class UserController {

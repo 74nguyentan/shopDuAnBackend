@@ -29,6 +29,7 @@ import edu.poly.model.BinhLuan;
 import edu.poly.model.LichSu;
 import edu.poly.model.MatHang;
 import edu.poly.model.Users;
+import edu.poly.model.productFavourite;
 import edu.poly.repository.LichSuRepository;
 
 @RestController @CrossOrigin(origins = "http://localhost:4200")
@@ -38,7 +39,8 @@ public class LichSuController {
 	
 	 @PostMapping("/lichsu")
 	    public LichSu createlichsu(@Valid @RequestBody LichSu lichsu) {
-			 return lichsurepository.save(lichsu);
+		 	lichsu.setTrangThai(true);
+		 	return lichsurepository.save(lichsu);
 	    }
 	 
 	 @GetMapping("/lichsu")
@@ -46,30 +48,17 @@ public class LichSuController {
 	        return lichsurepository.findAll();
 	   }
 	 
-	 @PutMapping("/lichsu/{LichsuId}")
-	    public ResponseEntity<LichSu> updatelichsu(@PathVariable(value = "LichsuId") int LichsuId,
-	         @Valid @RequestBody LichSu LichsuDetails) throws ResourceNotFoundException {
-		 LichSu lichsu = lichsurepository.findById(LichsuId)
-		 .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + LichsuId));
-		 lichsu.setMatHang(LichsuDetails.getMatHang());
-		 lichsu.setUsers(LichsuDetails.getUsers());
-		 lichsu.setNgayLap(new Date());
-		 final LichSu updatedlichsu = lichsurepository.save(lichsu);
-	        return ResponseEntity.ok(updatedlichsu);
-		         
-	 }
+	 @GetMapping("/lichsu/{id}")
+		public void deleteFavourite(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+		 	  lichsurepository.findByUsersId1(id);
+		}
 	 
-	 
-//	 @DeleteMapping("/lichsu")
-//	 public void deleteSomeUser(Users users) {
-//		 List<LichSu> lichsu = lichsurepository.deleteLichsuWithIds(users);
-//		 
-//	 }
+
 	 @GetMapping("/idlichsu/{id}")
 	    public List<LichSu> getidlichsu(@PathVariable("id") Integer id){
 		 Sort sort = Sort.by("ngayLap").descending();
 	    	return lichsurepository.findByUsersId(id, sort);
-	    }
+	  }
 	 
 	 @GetMapping("/thongkelichsu")
 	  public Object[] getthongke() {
