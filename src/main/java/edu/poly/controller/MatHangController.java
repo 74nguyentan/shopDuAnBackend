@@ -38,7 +38,7 @@ public class MatHangController {
 	@GetMapping("/mathang")
     public List<MatHang> getAllMatHangDetails(Date ngaylap) {
 		Sort sort = Sort.by("ngayLap").descending();
-        return mathangrepository.findAll(sort);
+        return mathangrepository.findAll1(sort);
     }
 	
 	// hiển thị mặt hàng theo id http//localhost/8989/api/mathang/{id}
@@ -54,6 +54,7 @@ public class MatHangController {
     @PostMapping("/mathang")
     public MatHang createMatHang(@Valid @RequestBody MatHang MatHang) {
     	MatHang.setNgayLap(new Date());
+    	MatHang.setLuotBaoCao(0);
         return mathangrepository.save(MatHang);
     }
     
@@ -106,17 +107,17 @@ public class MatHangController {
     	return mathangrepository.getAllByUsers_Id(id, sort);
     }
     
-    @GetMapping("/top10/{id}")
-    public List<MatHang> gettoploaihang(@PathVariable("id") Integer id){
-    	Sort sort = Sort.by("ngayLap").descending();
-    	return mathangrepository.findFirst10ByLoaiHangId(id, sort);
-    }
+//    @GetMapping("/top10/{id}")
+//    public List<MatHang> gettoploaihang(@PathVariable("id") Integer id){
+//    	Sort sort = Sort.by("ngayLap").descending();
+//    	return mathangrepository.findFirst10ByLoaiHangId(id, sort);
+//    }
     
    //tìm kiếm theo loại hàng 
   @GetMapping("/fitler/{id}")
   public List<MatHang> getfitler(@PathVariable("id") Integer id){
-  	
-  	return mathangrepository.findMatHangByLoaiHangId(id);
+	Sort sort = Sort.by("ngayLap").descending();
+  	return mathangrepository.findByLoaiHangId(id,sort);
   }
   
   //tìm kiếm theo tên mat hang 
@@ -156,6 +157,16 @@ public class MatHangController {
   public Object[] getthongke() {
 	  Object[] thongke = mathangrepository.getthongke();
       return thongke;
+  }
+  
+  @PutMapping("/tocao/{id}")
+  public ResponseEntity<MatHang> updateluottocaoMatHang(@PathVariable(value = "id") int MatHangId,
+       @Valid @RequestBody MatHang MatHangDetails) throws ResourceNotFoundException {
+      MatHang MatHang = mathangrepository.findById(MatHangId)
+      .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
+	        MatHang.setLuotBaoCao(MatHangDetails.getLuotBaoCao());
+      final MatHang updatedMatHang = mathangrepository.save(MatHang);
+      return ResponseEntity.ok(updatedMatHang);
   }
   
 }

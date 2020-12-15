@@ -29,6 +29,9 @@ public class MatHang implements Serializable{
 	@Column(length = 50)
 	private double gia;
 	
+	@Column(length = 100)
+	private Integer luotBaoCao;
+	
 	@Column(length = 50)
 	private String xuatXu;
 	
@@ -260,5 +263,14 @@ public class MatHang implements Serializable{
 	public MatHang() {
 		super();
 	}
+	public Integer getLuotBaoCao() {
+		return luotBaoCao;
+	}
+
+	public void setLuotBaoCao(Integer luotBaoCao) {
+		this.luotBaoCao = luotBaoCao;
+	}
+	
+	
 
 }
