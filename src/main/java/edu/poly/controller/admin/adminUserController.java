@@ -1,5 +1,4 @@
-
-package edu.poly.controller;
+package edu.poly.controller.admin;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ import edu.poly.repository.UserRepository;
 @CrossOrigin(origins = "http://localhost:4300")
 @RestController
 @RequestMapping("/qli")
-public class AdminController {
+public class adminUserController {
 	@Autowired
 	private UserRepository userRepository;
 
