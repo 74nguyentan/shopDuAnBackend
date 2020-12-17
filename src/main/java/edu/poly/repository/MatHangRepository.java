@@ -50,5 +50,7 @@ public interface MatHangRepository extends JpaRepository<MatHang, Integer> {
 			+ " FROM MatHang m where m.luotBaoCao < 1 GROUP BY m.users.hoVaTen ORDER BY COUNT(m.tenHang) DESC")
 	Object [] getthongke();
 	
+	@Query("SELECT m FROM MatHang m WHERE m.luotBaoCao > 1")
+	List<MatHang> findreport(Sort sort);
 	
 }

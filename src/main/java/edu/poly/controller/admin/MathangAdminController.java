@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,4 +60,24 @@ public class MathangAdminController {
   	  Object[] thongke = mathangrepository.getthongke();
         return thongke;
     }
+    
+    //các mặt hàng bị report 
+    @GetMapping("/mathangreport")
+    public List<MatHang> getmathangreport(Integer luotBaoCao) {
+		Sort sort = Sort.by("luotBaoCao").descending();
+        return mathangrepository.findreport(sort);
+    }
+    
+    //open mat hang bị report
+    @PutMapping("/tocao/{id}")
+    public ResponseEntity<MatHang> updateluottocaoMatHang(@PathVariable(value = "id") int MatHangId,
+         @Valid @RequestBody MatHang MatHangDetails) throws ResourceNotFoundException {
+        MatHang MatHang = mathangrepository.findById(MatHangId)
+        .orElseThrow(() -> new ResourceNotFoundException("MatHang not found for this id :: " + MatHangId));
+  	        MatHang.setLuotBaoCao(MatHangDetails.getLuotBaoCao());
+        final MatHang updatedMatHang = mathangrepository.save(MatHang);
+        return ResponseEntity.ok(updatedMatHang);
+    }
+    
+    
 }
