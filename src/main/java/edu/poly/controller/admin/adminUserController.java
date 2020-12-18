@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
+import edu.poly.model.MatHang;
 import edu.poly.model.Users;
 import edu.poly.repository.UserRepository;
 
@@ -81,4 +82,10 @@ public class adminUserController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+    
+    @GetMapping("/qli/find/{hoVaten}")
+    public List<Users> getmathang(@PathVariable("hoVaten") String hoVaten){
+    	return userRepository.findByhoVaTenContaining(hoVaten);
+    }
+    
 }

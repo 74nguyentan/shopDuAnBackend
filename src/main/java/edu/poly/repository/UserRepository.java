@@ -13,4 +13,5 @@ import edu.poly.model.Users;
 public interface UserRepository extends JpaRepository<Users, Integer> {
 List<Users> findByEmail(@Param("email") String email);
 //	List<Users> findByEmail(String email);
+List<Users> findByhoVaTenContaining(@Param("hoVaTen")String hoVaTen);
 }
